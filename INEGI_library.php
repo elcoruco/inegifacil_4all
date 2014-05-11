@@ -6,7 +6,7 @@
 */
 
 class INEGI_library{
-  // define the time periods
+  // define the time period
   const FROM       = 1800;
   const TO         = 2050;
   // define the endpoints base
