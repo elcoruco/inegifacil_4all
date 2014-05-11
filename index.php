@@ -1,10 +1,10 @@
 <?php
 
-if($_GET['index'] && $_GET['location']){
+if($_GET['index'] && $_GET['location'] && isset($_GET['endpoint'])){
   // get the INEGI library
   include_once('INEGI_library.php');
   $inegi = new INEGI_library();
-  $response = $inegi->index($_GET['index'], $_GET['location']);
+  $response = $inegi->index($_GET['index'], $_GET['location'], (int)$_GET['endpoint']);
   
   // return json
   header('Content-Type: application/json');
@@ -20,6 +20,15 @@ if($_GET['index'] && $_GET['location']){
 </head>
 <body>
   <form id="query" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <!-- SELECT THE ENDPOINT -->
+    <p>
+      <label for="endpoint">Selecciona el tipo de resultado:</label>
+      <select name="endpoint" id="endpoint">
+        <option value="0">Valores históricos (todos)</option>
+        <option value="1">Valor oportuno (el último)</option>
+      </select>
+    </p>
+
     <!-- SELECT THE LOCATION -->
     <p>
       <label for="location">Selecciona una ubicación:</label>
@@ -29,6 +38,7 @@ if($_GET['index'] && $_GET['location']){
         <option value="15000">Estado de México</option>
         <option value="21000">Puebla</option>
         <option value="21132">San Martín Texmelucan</option>
+        <option value="99999">Jauja (inexistente)</option>
       </select>
     </p>
 
@@ -39,6 +49,7 @@ if($_GET['index'] && $_GET['location']){
         <option value="1002000001">población total</option>
         <option value="1002000003">Población total mujeres</option>
         <option value="6300000269">Población en situación de pobreza</option>
+        <option value="12345678">Valor equivocado</option>
       </select>
     </p>
 
@@ -59,7 +70,8 @@ if($_GET['index'] && $_GET['location']){
     function getData(e){
       var loc   = document.getElementById('location').value,
           index = document.getElementById('index').value,
-          url   = 'index.php?location=' + loc + '&index=' + index,
+          end   = document.getElementById('endpoint').value,
+          url   = 'index.php?location=' + loc + '&index=' + index + '&endpoint=' + end,
           r     = new XMLHttpRequest();
 
       r.open('GET', url, true);
