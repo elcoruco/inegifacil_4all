@@ -19,7 +19,7 @@ $endpoint = 0; // 0 para todos los valores, 1 para el último valor solamente
 $response = $inegi->index($indice, $lugar, $endpoint);
 </pre>
 <p> Las claves de de los estados y municipios las puedes obtener de aquí: http://inegifacil.com/dropdowns</p>
-<p> Las claves para los indicadores, los puedes obtener dentro de inegifacil.com o en el  sitio oficial del INEGI: 
+<p> Las claves para los indicadores, los puedes obtener dentro de http://inegifacil.com/indicadores o en el  sitio oficial del INEGI: 
 http://www.inegi.org.mx/inegi/contenidos/serviciosweb/infoestadistica.aspx</p>
 
 <p>4. regresa la info en json para tu app</p>
